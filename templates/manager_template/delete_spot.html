@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Confirmation</title>
+    <style>
+        /* Body and container styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: #ff7043; /* Coral color */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        strong {
+            font-weight: bold;
+            color: #d32f2f; /* Red for emphasis */
+        }
+
+        /* Button styles */
+        input[type="submit"] {
+            background-color: #ff7043;  /* Coral color */
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff5722; /* Darker coral on hover */
+        }
+
+        button.cancel-btn {
+            background-color: #f4f7f6;
+            color: #ff7043;
+            border: 1px solid #ff7043;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        button.cancel-btn:hover {
+            background-color: #ff7043;
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            input[type="submit"], button.cancel-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Confirmation</h1>
+        <p>Are you sure you want to delete <strong>{{ menu.instance.name }}</strong>?</p>
+
+        <form method="post" action="">
+            {% csrf_token %}
+            <input type="submit" value="Yes, Delete">
+            <button type="button" class="cancel-btn" onclick="window.history.back();">Cancel</button>
+        </form>
+    </div>
+</body>
+</html>

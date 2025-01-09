@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot Details</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f7fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .form-container {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 900px;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            font-size: 16px;
+        }
+
+        th {
+            width: 200px;
+            background-color: #f8f8f8;
+            font-weight: bold;
+            color: #555;
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        /* Image Container */
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container p {
+            font-size: 16px;
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Buttons Container */
+        .button {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .button a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .edit, .dlt {
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 120px;
+        }
+
+        .edit {
+            background-color: #4CAF50; /* Green */
+            transition: background-color 0.3s ease;
+        }
+
+        .edit:hover {
+            background-color: #45a049;
+        }
+
+        .dlt {
+            background-color: #f44336; /* Red */
+            transition: background-color 0.3s ease;
+        }
+
+        .dlt:hover {
+            background-color: #e53935;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 95%;
+            }
+
+            table th, table td {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .button {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .edit, .dlt {
+                width: 100%;
+                margin: 5px 0;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<h1>Spot Details</h1>
+
+{% for item in spoty %}
+    <div class="form-container">
+        <table>
+            <tr>
+                <th><label for="name">Name:</label></th>
+                <td>{{ item.name }}</td>
+            </tr>
+
+            <tr>
+                <th><label for="description">Description:</label></th>
+                <td>{{ item.description }}</td>
+            </tr>
+
+            <tr>
+                <th><label for="location">Location:</label></th>
+                <td>{{ item.location }}</td>
+            </tr>
+
+            <tr>
+                <th><label for="category">Package Type:</label></th>
+                <td>{{ item.category }}</td>
+            </tr>
+
+            <tr class="image-container">
+                <th><label for="image">Image:</label></th>
+                <td>
+                    {% if item.image %}
+                        <img src="{{ item.image.url }}" alt="Spot Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+
+        <div class="button">
+            <button class="edit"><a href="{% url 'spot_edit' item.id %}">Edit</a></button>
+            <button class="dlt"><a href="{% url 'Delete_spot' item.id %}" onclick="confirmDelete(event)">Delete</a></button>
+        </div>
+    </div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Register Page</title>
+
+
+    <style>
+        /* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+}
+
+.container {
+    display: flex;
+    width: 60%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.left-side {
+
+    background-size: cover;
+    background:url("{% static 'images/register page.jpg' %}");
+    background-position: center;
+    width: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 8px 0 0 8px;
+}
+
+.left-side .content {
+    text-align: center;
+}
+
+.left-side h2 {
+    font-size: 28px;
+    margin-top: 100px;
+}
+
+.left-side p {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.left-side button {
+    background-color: #ff6a00;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.right-side {
+    width: 50%;
+    background-color: white;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0 8px 8px 0;
+}
+
+.right-side h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.floating-label {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.floating-label input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    outline: none;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.floating-label input:focus {
+    border-bottom: 1px solid #ff6a00;
+}
+
+.floating-label label {
+    position: absolute;
+    left: 0;
+    top: 15px;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.3s;
+    pointer-events: none;
+}
+
+.floating-label input:focus+label,
+.floating-label input:not(:placeholder-shown)+label {
+    top: -10px;
+    font-size: 12px;
+    color: #ff6a00;
+}
+
+.right-side button {
+    width: 100%;
+    background-image: linear-gradient(to right, #ff6a00, #ff9900);
+    border: none;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+
+.google-signup {
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.google-signup img {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.right-side a {
+    display: block;
+    text-align: center;
+    color: #666;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.right-side a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.75rem;
+    display: none;
+}
+
+
+@media screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+    }
+
+    .left-side h2
+    .right-side h2 {
+        font-size: 20px;
+
+    }
+}
+
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="left-side">
+            <div class="content">
+                <h2>Join Us Today!</h2>
+                <p>We have nothing to lose and a world to see – register now!</p>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <h2>Create Your Restaurant Account</h2>
+            <form id="registerForm" method="post">
+                {% csrf_token %}
+
+                <div class="floating-label">
+                    <input type="text" id="username" name="username" placeholder=" " required>
+                    <label for="username">Username</label>
+                    <div id="error1" class="error-message"></div>
+                </div>
+
+                <div class="floating-label">
+                    <input type="email" id="email" name="email" placeholder=" " required>
+                    <label for="email">Email</label>
+                    <div id="error2" class="error-message"></div>
+                </div>
+
+                <div class="floating-label">
+                    <input type="password" id="password" name="password" placeholder=" " required>
+                    <label for="password">Password</label>
+                    <div id="error3" class="error-message"></div>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" id="phone_number" name="phone_number" placeholder=" " required>
+                    <label for="phone_number">Phone Number</label>
+                    <div id="error4" class="error-message"></div>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" id="bussiness_name" name="bussiness_name" placeholder=" " required>
+                    <label for="bussiness_name">Business Name</label>
+                    <div id="error5" class="error-message"></div>
+                </div>
+
+                <div class="floating-label">
+                    <input type="text" id="location" name="location" placeholder=" " required>
+                    <label for="location">Location</label>
+                    <div id="error6" class="error-message"></div>
+                </div>
+
+                <button type="submit">Register</button>
+
+                <div class="google-signup">
+                    <img src="https://i.pinimg.com/236x/39/21/6d/39216d73519bca962bd4a01f3e8f4a4b.jpg" alt="Google Logo">
+                    Sign Up with Google
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+    const registerForm = document.getElementById("registerForm");
+
+    const username = document.getElementById("username");
+    const email = document.getElementById("email");
+    const phone_number = document.getElementById("phone_number");
+    const password = document.getElementById("password");
+    const business_name = document.getElementById("business_name");
+    const location = document.getElementById("location");
+
+    const error1 = document.getElementById("error1");
+    const error2 = document.getElementById("error2");
+    const error3 = document.getElementById("error3");
+    const error4 = document.getElementById("error4");
+    const error5 = document.getElementById("error5");
+    const error6 = document.getElementById("error6");
+
+    const usernamePattern = /^[A-Za-z\s]+$/;
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const phonePattern = /^[0-9]{10}$/;
+    const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+    function validateForm(event) {
+        let valid = true;
+
+        // Username Validation
+        if (!username.value.trim() || !usernamePattern.test(username.value)) {
+            error1.style.display = "block";
+            error1.innerHTML = "Invalid username (letters and spaces only).";
+
+
+    </script>
+</body>
+
+</html>

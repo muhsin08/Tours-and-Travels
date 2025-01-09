@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for data in mybook %}
+    <div class="form-container">
+        <table>
+            <tr>
+                <th><label>Place:</label></th>
+                <td>{{ data.packageid }}</td>
+            </tr>
+            <tr>
+                <th><label>Price:</label></th>
+                <td>{{ data.accountnumber }}</td>
+            </tr>
+            <tr>
+                <th><label>Duration Days:</label></th>
+                <td>{{ data.name_details }}</td>
+            </tr>
+        </table>
+    </div>
+{% endfor %}
+</body>
+</html>

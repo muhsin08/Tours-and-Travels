@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Edit</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #4CAF50, #81C784); /* Green linear gradient background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+
+        form {
+
+            padding: 15px; /* Reduced padding */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%; /* Increased width */
+            max-width: 1000px; /* Max width for large screens */
+            font-size: 13px; /* Smaller font size */
+            background-color: yellow; /* Yellow background for the table */
+            transition: background-color 0.3s ease;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: yellow; /* Yellow background for the table */
+            transition: background-color 0.3s ease; /* Smooth transition for background color */
+        }
+
+        table:hover {
+            background-color: #FFEB3B; /* Lighter yellow when hovering */
+        }
+
+        th, td {
+            padding: 4px 8px; /* Further reduced padding */
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f9f9f9;
+            color: #555;
+            width: 150px; /* Reduced column width */
+        }
+
+        td {
+            background-color: #fafafa;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        select,
+        input[type="file"],
+        textarea {
+            width: 100%;
+            padding: 4px; /* Reduced padding for smaller height */
+            margin: 5px 0 8px 0; /* Reduced bottom margin */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            font-size: 13px; /* Smaller font size */
+        }
+
+        input[type="file"] {
+            padding: 3px; /* Even smaller padding for file input */
+        }
+
+        .butt {
+            width: 100%;
+            padding: 6px; /* Reduced button padding */
+            background-color: #4CAF50;
+            color: white;
+            font-size: 14px; /* Slightly smaller font size */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .butt:hover {
+            background-color: #45a049;
+        }
+
+        img {
+            max-width: 150px;
+            margin-bottom: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            form {
+                width: 95%;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 50px; /* Reduced textarea height */
+        }
+    </style>
+</head>
+<body>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th><label for="name">Name:</label></th>
+            <td><input type="text" name="name" value="{{ data.name }}" required></td>
+        </tr>
+        <tr>
+            <th><label for="price">Price:</label></th>
+            <td><input type="number" name="price" value="{{ data.price }}" required step="0.01" min="0"></td>
+        </tr>
+        <tr>
+            <th><label for="duration_days">Duration (days):</label></th>
+            <td><input type="number" name="duration_days" value="{{ data.duration_days }}" required min="1"></td>
+        </tr>
+        <tr>
+            <th><label for="available_from">Available from:</label></th>
+            <td><input type="date" name="available_from" value="{{ data.available_from|date:'Y-m-d' }}" required></td>
+        </tr>
+        <tr>
+            <th><label for="available_to">Available to:</label></th>
+            <td><input type="date" name="available_to" value="{{ data.available_to|date:'Y-m-d' }}" required></td>
+        </tr>
+        <tr>
+            <th><label for="package_type">Package Type:</label></th>
+            <td>
+                <select name="package_type" id="package_type" required>
+                    <option value="family" {% if data.package_type == "family" %}selected{% endif %}>Family</option>
+                    <option value="luxury" {% if data.package_type == "luxury" %}selected{% endif %}>Luxury</option>
+                    <option value="honeymoon" {% if data.package_type == "honeymoon" %}selected{% endif %}>Honeymoon</option>
+                    <option value="adventure" {% if data.package_type == "adventure" %}selected{% endif %}>Adventure</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="image">Image:</label></th>
+            <td>
+                {% if data.image %}
+                    <img src="{{ data.image.url }}" alt="Current image">
+                {% endif %}
+                <input type="file" name="image">
+            </td>
+        </tr>
+        <tr>
+            <th><label for="destinations">Destinations:</label></th>
+            <td><input type="text" name="destinations" value="{{ data.destinations }}" required></td>
+        </tr>
+        <tr>
+            <th><label for="description">Description:</label></th>
+            <td><textarea name="description" required>{{ data.description }}</textarea></td>
+        </tr>
+        <tr>
+            <th colspan="2"><input class="butt" type="submit" value="Update Package"></th>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

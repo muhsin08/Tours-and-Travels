@@ -1,0 +1,140 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management</title>
+    <style>
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background:url("{% static 'images/hotelimg.jpg' %}");
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size:cover;
+        }
+
+        .form-container {
+            background-color: rgba(74, 188, 54, 0.3);
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+
+        .form-table {
+            width: 100%;
+            border-spacing: 10px 8px;
+        }
+
+        .form-table td {
+            vertical-align: middle;
+            padding: 6px;
+        }
+
+
+        label {
+            font-size: 18px;
+            color: black;
+            display: inline-block;
+        }
+
+        input, select, textarea {
+            width: 97%;
+            padding: 8px;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background-color: #f9f9f9;
+            height: 35px;
+        }
+
+        textarea {
+            height: 80px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+            height: 40px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        @media (max-width: 600px) {
+            .form-container {
+                width: 90%;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Add Hotel</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <table class="form-table">
+                <tr>
+                    <td><label for="name">Hotel Name:</label></td>
+                    <td><input class="inp" type="text" id="name" name="name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="description">Description:</label></td>
+                    <td><textarea class="inp" id="description" name="description" required></textarea></td>
+                </tr>
+                <tr>
+                    <td><label for="address">Address:</label></td>
+                    <td><input class="inp" type="text" id="address" name="address" required></td>
+                </tr>
+                <tr>
+                    <td><label for="phone_number">Phone Number:</label></td>
+                    <td><input class="inp" type="text" id="phone_number" name="phone_number" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td><input class="inp" type="email" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="rating">Rating:</label></td>
+                    <td><input class="inp" type="number" id="rating" name="rating" required min="1" max="5"></td>
+                </tr>
+                <tr>
+                    <td><label for="image">Image:</label></td>
+                    <td><input class="inp" type="file" id="image" name="image" required></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><button type="submit">Add Hotel</button></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</body>
+</html>

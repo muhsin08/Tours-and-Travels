@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tourist Spot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border-top: 5px solid #6a5acd;  /* Purple border */
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50; /* Green for heading */
+            font-size: 26px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            font-size: 16px;
+            padding: 10px;
+            color: #333;
+            background-color: #6a5acd; /* Purple background for headers */
+            color: white;
+            border-radius: 4px;
+        }
+
+        td {
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        input[type="text"], select, input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-top: 5px;
+            background-color: #f4f4f4; /* Light gray background for inputs */
+        }
+
+        select {
+            background-color: #f4f4f4;
+        }
+
+        input[type="submit"] {
+            background-color: #ff7043;  /* Coral for submit button */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #ff5722;  /* Darker coral for hover effect */
+        }
+
+        img {
+            max-width: 150px;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .butt {
+            text-align: center;
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50; /* Green for button */
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .butt:hover {
+            background-color: #45a049;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+
+            table {
+                margin-bottom: 15px;
+            }
+
+            th {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            td {
+                padding: 8px;
+            }
+
+            input[type="text"], select, input[type="file"] {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            input[type="submit"] {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        /* For very small screens like mobile phones */
+        @media screen and (max-width: 480px) {
+            .container {
+                width: 95%;
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 18px;
+            }
+
+            th, td {
+                font-size: 12px;
+                padding: 5px;
+            }
+
+            input[type="text"], select, input[type="file"] {
+                font-size: 12px;
+                padding: 8px;
+            }
+
+            input[type="submit"] {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Tourist Spot</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="name">Name:</label></th>
+                    <td><input type="text" name="name" value="{{ south.instance.name }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="description">Description:</label></th>
+                    <td><input type="text" name="description" value="{{ south.instance.description }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="location">Location:</label></th>
+                    <td><input type="text" name="location" value="{{ south.instance.location }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="category">Category:</label></th>
+                    <td>
+                        <select name="category" id="category" required>
+                            <option value="outdoor" {% if south.instance.category == "outdoor" %}selected{% endif %}>Outdoor</option>
+                            <option value="indoor" {% if south.instance.category == "indoor" %}selected{% endif %}>Indoor</option>
+                            <option value="studio" {% if south.instance.category == "studio" %}selected{% endif %}>Studio</option>
+                            <option value="event" {% if south.instance.category == "adventure" %}selected{% endif %}>Event</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th><label for="image">Image:</label></th>
+                    <td>
+                        {% if south.instance.image %}
+                            <img src="{{ south.instance.image.url }}" alt="Current image">
+                        {% endif %}
+                        <input type="file" name="image">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">
+                        <input class="butt" type="submit" value="Update Spot">
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

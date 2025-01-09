@@ -1,0 +1,196 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Details</title>
+    <style>
+        /* General styling for the body */
+        body {
+            font-family: 'Arial', sans-serif;
+              background:url("{% static 'images/lobby-398845.jpg' %}");
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-size:cover;
+        }
+
+        /* Styling for the form container */
+        .form-container {
+<!--            background-color: #ffffff;-->
+            width: 80%;
+            max-width: 800px;
+            margin: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+
+        }
+
+        /* Title styling */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th,
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+            font-size: 16px;
+<!--            color: #555;-->
+        }
+
+        table th {
+            width: 30%;
+            background-color: #f1f1f1;
+            font-weight: bold;
+        }
+
+        /* Image styling */
+        .image-container {
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 8px;
+        }
+
+        .image-container p {
+            color: #777;
+            font-style: italic;
+        }
+
+        /* Buttons styling */
+        .button {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .button a {
+            text-decoration: none;
+        }
+
+        .button button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button .edit {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .button .edit:hover {
+            background-color: #45a049;
+        }
+
+        .button .dlt {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .button .dlt:hover {
+            background-color: #e53935;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            table th,
+            table td {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    {% for large in tasty %}
+        <div class="form-container">
+            <h1>Hotel Details</h1>
+
+            <!-- Hotel Details in Table Format -->
+            <table>
+                <tr>
+                    <th>Hotel Name:</th>
+                    <td>{{ large.name }}</td>
+                </tr>
+
+                <tr>
+                    <th>Description:</th>
+                    <td>{{ large.description }}</td>
+                </tr>
+
+                <tr>
+                    <th>Address:</th>
+                    <td>{{ large.address }}</td>
+                </tr>
+
+                <tr>
+                    <th>Phone Number:</th>
+                    <td>{{ large.phone_number }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ large.email }}</td>
+                </tr>
+
+                <tr>
+                    <th>Rating:</th>
+                    <td>{{ large.rating }}</td>
+                </tr>
+
+                <!-- Hotel Image -->
+                <tr>
+                    <th>Image:</th>
+                    <td class="image-container">
+                        {% if large.image %}
+                            <img src="{{ large.image.url }}" alt="Hotel Image">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+
+            <!-- Buttons Below the Details -->
+            <div class="button">
+                <button class="edit"><a href="{% url 'hotel_edit' large.id %}">Edit</a></button>
+                <button class="dlt"><a href="{% url 'delete_hotel' large.id %}">Delete</a></button>
+            </div>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

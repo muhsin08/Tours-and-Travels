@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+        .details {
+            background: #fff;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+        }
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+        .value {
+            margin-left: 10px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+{% for use in user %}
+    <div class="details">
+        <span class="label">Full Name:</span>
+        <span class="value">{{ use.full_name }}</span><br>
+        <span class="label">Phone Number:</span>
+        <span class="value">{{ use.phone_number }}</span><br>
+        <span class="label">Email:</span>
+        <span class="value">{{ use.customer.email }}</span>
+    </div>
+{% endfor %}
+</body>
+</html>

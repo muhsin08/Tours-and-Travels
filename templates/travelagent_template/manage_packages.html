@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Details</title>
+    <style>
+        body {
+            background-color: rgb(65, 69, 8);
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        table {
+            width: 70%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: wheat;
+            color: black;
+        }
+
+        .form-container {
+            width: 30%;
+            margin: 0 auto;
+        }
+
+        .edit, .dlt {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            width: 150px;
+            margin: 10px 0;
+            display: inline-block;
+        }
+
+        .edit {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit:hover {
+            background-color: #45a049;
+        }
+
+        .dlt {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .dlt:hover {
+            background-color: #e53935;
+        }
+
+        .button a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .button {
+            text-align: center;
+        }
+
+        .inp {
+            height: 30px;
+            text-align: center;
+        }
+
+        .form-container h1 {
+            text-shadow: 1px 1px 2px black;
+            text-align: center;
+        }
+
+        /* Image styling */
+        .image-container img {
+            width: 100px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                width: 90%;
+            }
+
+            .edit, .dlt {
+                width: 100%;
+                font-size: 16px;
+                padding: 12px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% for data in pack %}
+    <div class="form-container">
+        <table>
+            <tr>
+                <th><label>Name:</label></th>
+                <td>{{ data.name }}</td>
+            </tr>
+            <tr>
+                <th><label>Price:</label></th>
+                <td>{{ data.price }}</td>
+            </tr>
+            <tr>
+                <th><label>Duration Days:</label></th>
+                <td>{{ data.duration_days }}</td>
+            </tr>
+            <tr>
+                <th><label>Available From:</label></th>
+                <td>{{ data.available_from }}</td>
+            </tr>
+            <tr>
+                <th><label>Available To:</label></th>
+                <td>{{ data.available_to }}</td>
+            </tr>
+            <tr>
+                <th><label>Package Type:</label></th>
+                <td>{{ data.package_type }}</td>
+            </tr>
+            <tr class="image-container">
+                <th><label>Image:</label></th>
+                <td>
+                    {% if data.image %}
+                        <img src="{{ data.image.url }}" alt="Package Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <th><label>Destinations:</label></th>
+                <td>{{ data.destinations }}</td>
+            </tr>
+            <tr>
+                <th><label>Description:</label></th>
+                <td>{{ data.description }}</td>
+            </tr>
+        </table>
+
+        <div class="button">
+            <button class="edit"><a href="{% url 'edit' data.id %}">Edit</a></button>
+            <button class="dlt"><a href="{% url 'delete' data.id %}">Delete</a></button>
+        </div>
+    </div>
+{% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,456 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="userfron.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+            list-style: none;
+            scroll-behavior: smooth;
+        }
+
+        #navbar {
+            background-color: rgba(22, 146, 146, 0.5);
+            position: fixed;
+            display: flex;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #logo {
+            font-size: 36px;
+            font-weight: 700;
+            color: black;
+            text-shadow: opx 1px 1px black;
+            margin-bottom: 5px;
+        }
+
+        #logo span {
+            color: burlywood;
+        }
+
+        .navbar-nav {
+            margin-left: 140px;
+            padding-left: 20px;
+        }
+
+        .nav-item .nav-link {
+            font-size: 16px;
+            font-weight: 550;
+            color: black;
+            letter-spacing: 1px;
+            border-radius: 3px;
+            transition: 0.5s ease;
+        }
+
+        .nav-item .nav-link:hover {
+            background-color: chartreuse;
+            color: white;
+        }
+
+        #navbar form button {
+            background-color: orange;
+            color: aliceblue;
+            border: none;
+        }
+
+        .home {
+            width: 100%;
+            height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.2)), url({% static 'images/back.jpg' %});
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .home .content {
+            text-align: center;
+            padding-top: 200px;
+        }
+
+        .home .content h5 {
+            color: white;
+            font-size: 38px;
+            font-weight: 500;
+            text-shadow: 0px 1px 1px black;
+        }
+
+        .home .content h1 {
+            color: white;
+            font-size: 40px;
+            font-weight: 600;
+            text-shadow: 0px 1px 1px black;
+            margin-top: 5px;
+        }
+
+        .home .content p {
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 0px 1px 1px black;
+            margin-top: 5px;
+        }
+
+        .changecontent::after {
+            content: ' ';
+            color: burlywood;
+            text-shadow: 0px 1px 1px black;
+            animation: changetext 10s infinite linear;
+        }
+
+        @keyframes changetext {
+            0% {
+                content: "Malaysia";
+            }
+
+            10% {
+                content: "Singapore";
+            }
+
+            20% {
+                content: "Russia";
+            }
+
+            30% {
+                content: "Srilanka";
+            }
+
+            40% {
+                content: "Ireland";
+            }
+
+            50% {
+                content: "China";
+            }
+
+            60% {
+                content: "Japan";
+            }
+        }
+
+        .home .content a {
+            padding: 10px;
+            background-color: white;
+            color: black;
+            letter-spacing: 2px;
+            font-weight: 550;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .home .content a:hover {
+            background: orange;
+            color: azure;
+        }
+
+        .book {
+            background-color: white;
+            padding: 50px;
+            margin-top: 60px;
+        }
+
+        .main-text h1 {
+            text-align: center;
+            text-shadow: 0px 1px 1px black;
+            font-weight: 600;
+        }
+
+        .main-text span {
+            color: burlywood;
+        }
+
+        .book .card {
+            border-radius: 30px;
+            box-shadow: 0px 5px 5px -6px black;
+            height: 200px;
+            margin-top: 20px;
+        }
+
+        .book .card img {
+            border-radius: 10px;
+        }
+
+        .book .row {
+            margin-top: 30px;
+        }
+
+        .book form input {
+            padding: 10px;
+            color: black;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 5px -6px black;
+        }
+
+        .book form textarea {
+            border: none;
+            border-radius: 10px;
+            resize: none;
+            box-shadow: 0px 5px 5px -6px black;
+            height: 170px;
+        }
+
+        .book .submit {
+            width: 160px;
+            font-size: 16px;
+            font-weight: 550;
+            background-color: burlywood;
+            color: white;
+            transition: 0.5s;
+        }
+
+        .book .submit:hover {
+            width: 170px;
+        }
+
+        .main-txt h1 {
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 600;
+            text-shadow: 0px 1px 1px black;
+        }
+
+        .main-txt h1 span {
+            color: burlywood;
+        }
+
+        .packages .card img {
+            border-radius: 5px;
+        }
+
+        .packages .card {
+            border: none;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+        }
+
+        .packages .card .card-body {
+            background: transparent;
+        }
+
+        .packages .card .card-body h3 {
+            font-size: 25px;
+            font-weight: 600;
+        }
+
+        .packages .card .card-body p {
+            font-size: 15px;
+        }
+
+        .fa-solid {
+            color: rgb(241, 249, 22);
+        }
+
+        .packages .card .card-body a {
+            padding: 10px;
+            text-decoration: none;
+            background-color: burlywood;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .packages .card img {
+            height: 290px;
+        }
+
+        .TrendingPlaces .card img {
+            height: 270px;
+            width: 260px;
+            border-radius: 10px;
+        }
+
+        .TrendingPlaces .card {
+            padding-left: 30px;
+            border: none;
+        }
+
+        .TrendingPlaces .card img:hover {
+            transform: scale(1.1);
+        }
+
+        .foot {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8f9fa;
+            padding: 15px 0;
+            text-align: center;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+
+        .book-now-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-now-btn:hover {
+            background-color: #0056b3;
+        }
+        .complaints{
+        text-align:center;}
+
+        .explore-btn {
+        padding: 10px 30px;
+        background-color: orange;
+        color: white;
+        font-weight: 600;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: 0.3s ease;
+        margin-top: 20px;
+}
+
+.explore-btn:hover {
+    background-color: burlywood;
+    color: black;
+}
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" id="logo"><span>T</span>ravel</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Book</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'packages' %}">Packages</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'upcom_fest' %}">Upcoming Festivals</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'videos' %}">VR videos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'view_trend_place' %}">Trending Places</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#complaints">Complaints</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'sendfeedback' %}">Send Feedback</a></li>
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="home">
+    <div class="content">
+        <h5>Welcome To World</h5>
+        <h1>Visit <span class="changecontent"></span></h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. <br> Eum autem debitis necessitatibus, cupiditate in pariatur laudantium numquam vel quas <br> et animi. Animi quibusdam facilis voluptatum? Aperiam expedita nam quibusdam modi?</p>
+
+
+        <a href="#explore" class="btn btn-warning explore-btn">Let's Explore</a>
+    </div>
+</div>
+
+    <section id="complaints" class="complaints">
+        <div class="container">
+            <h2>Complaints</h2>
+            <p>Enter your complaints</p>
+            <a href="{% url 'rest_complaints'%}" class="btn btn-primary">About Restaurant</a>
+            <a href="{% url 'add_complaints'%}" class="btn btn-primary">About Travel Agent</a>
+        </div>
+    </section>
+
+    <section class="TrendingPlaces" id="TrendingPlaces">
+        <div class="container">
+            <div class="main-txt">
+                <h1><span>G</span>allery</h1>
+            </div>
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic1.jpeg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic9.jpeg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic2.jpeg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic4.jpeg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 30px;">
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic5.jpeg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic6.jpeg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic7.jpeg' %}" alt="">
+                    </div>
+                </div>
+                <div class="col-md-3 py-3 py-md-0">
+                    <div class="card">
+                        <img src="{% static 'images/trending pic8.jpeg' %}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="packages" id="packages">
+        <div class="container mt-5">
+            <div class="row">
+                {% for data in pack %}
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card festival-card">
+                            <div class="row g-0">
+                                <div class="col-md-5">
+                                    <img src="{{ data.image.url }}" class="img-fluid rounded-start" alt="...">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="card-body">
+                                        <h3>{{ data.packname }}</h3>
+                                        <p>{{ data.description }}</p>
+                                        <a href="{{ data.booking_url }}" class="btn btn-warning">Book Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
+

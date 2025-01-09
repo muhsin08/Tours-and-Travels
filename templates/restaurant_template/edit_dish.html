@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Dish</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th {
+            text-align: left;
+            padding: 10px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        td {
+            padding: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: #fff;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        label {
+            font-size: 16px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .image-preview {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .image-preview img {
+            max-width: 150px;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+                margin: 0 10px;
+            }
+
+            input[type="submit"] {
+                padding: 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Edit Dish</h1>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="name">Dish Name:</label></th>
+                    <td><input type="text" name="name" value="{{ menu.name }}"></td>
+                </tr>
+                <tr>
+                    <th><label for="description">Description:</label></th>
+                    <td><input type="text" name="description" value="{{ menu.description }}"></td>
+                </tr>
+                <tr>
+                    <th><label for="price">Price:</label></th>
+                    <td><input type="number" name="price" value="{{ menu.price }}"></td>
+                </tr>
+                <tr>
+                    <th><label for="category">Category:</label></th>
+                    <td>
+                        <select name="category" id="category">
+                            <option value="appetizer" {% if menu.category == "appetizer" %}selected{% endif %}>Appetizer</option>
+                            <option value="main_course" {% if menu.category == "main_course" %}selected{% endif %}>Main Course</option>
+                            <option value="dessert" {% if menu.category == "dessert" %}selected{% endif %}>Dessert</option>
+                            <option value="beverage" {% if menu.category == "beverage" %}selected{% endif %}>Beverage</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="image">Image:</label></th>
+                    <td>
+                        {% if menu.image %}
+                            <div class="image-preview">
+                                <img src="{{ menu.image.url }}" alt="Current image">
+                            </div>
+                        {% endif %}
+                        <input type="file" name="image">
+                    </td>
+                </tr>
+                <tr>
+                    <th colspan="2"><input class="butt" type="submit" value="Update Dish"></th>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</body>
+</html>

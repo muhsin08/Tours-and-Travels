@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .booking-item {
+            background-color: #f9f9f9;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .details .label {
+            font-weight: bold;
+            color: #444;
+            min-width: 80px;
+        }
+
+        .details .value {
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .details div {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .details div span.value {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .details div span.value {
+            font-style: italic;
+            color: #4e6e81;
+        }
+
+        .label {
+            font-weight: bold;
+            color: #444;
+        }
+
+        .booking-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>User Complaints About Restaurant</h1>
+
+        {% for bry in rest_reply %}
+        <div class="booking-item">
+            <div class="details">
+                <div>
+                    <span class="label">Complaints:</span>
+                    <span class="value">{{ bry.message }}</span>
+                </div>
+                <div>
+                    <span class="label">Date:</span>
+                    <span class="value">{{ bry.date }}</span>
+                </div>
+                <div>
+                    <span class="label">Reply:</span>
+                    <span class="value">{{ bry.reply }}</span>
+                </div>
+                <div>
+                    <span class="label">Reply Date:</span>
+                    <span class="value">{{ bry.reply_date }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

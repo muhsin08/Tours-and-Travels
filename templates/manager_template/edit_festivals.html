@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Upcoming Festivals</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9; /* Light background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Container */
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 800px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #333;
+        }
+
+        td {
+            color: #555;
+        }
+
+        /* Input Field Styling */
+        input[type="text"],
+        input[type="date"],
+        input[type="time"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #333;
+        }
+
+        input[type="file"] {
+            border: none;
+            padding: 5px;
+        }
+
+        /* Image Styling */
+        img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Button Styling */
+        .butt {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .butt:hover {
+            background-color: #45a049;
+        }
+
+        .butt:active {
+            background-color: #388e3c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            input[type="text"],
+            input[type="date"],
+            input[type="time"],
+            input[type="file"] {
+                padding: 8px;
+            }
+
+            .butt {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+  <div class="container">
+        <h1>Edit Upcoming Festivals</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="name">Name:</label></th>
+                    <td><input type="text" name="name" value="{{ enjoy.instance.name }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="description">Description:</label></th>
+                    <td><input type="text" name="description" value="{{ enjoy.instance.description }}" required></td>
+                </tr>
+                <tr>
+                    <th><label for="location">Location:</label></th>
+                    <td><input type="text" name="location" value="{{ enjoy.instance.location }}" required></td>
+                </tr>
+                <tr>
+                    <th><label for="start_date">Start Date:</label></th>
+                    <td><input type="date" name="start_date" value="{{ enjoy.instance.start_date|date:'Y-m-d' }}" required></td>
+                </tr>
+                <tr>
+                    <th><label for="end_date">End Date:</label></th>
+                    <td><input type="date" name="end_date" value="{{ enjoy.instance.end_date|date:'Y-m-d' }}" required></td>
+                </tr>
+                <tr>
+                    <th><label for="start_time">Start Time:</label></th>
+                    <td><input type="time" name="start_time" value="{{ enjoy.instance.start_time|time:'H:i' }}" required></td>
+                </tr>
+                 <tr>
+                    <th><label for="end_time">End Time:</label></th>
+                    <td><input type="time" name="end_time" value="{{ enjoy.instance.end_time|time:'H:i' }}" required></td>
+                </tr>
+                 <tr>
+                    <th><label for="image">Image:</label></th>
+                    <td>
+                        {% if enjoy.instance.image %}
+                            <img src="{{ enjoy.instance.image.url }}" alt="Current image">
+                        {% endif %}
+                        <input type="file" name="image">
+                    </td>
+                </tr>
+                  <tr>
+                    <th colspan="2"><input class="butt" type="submit" value="Update Festival"></th>
+                </tr>
+            </table>
+        </form>
+  </div>
+
+</body>
+</html>

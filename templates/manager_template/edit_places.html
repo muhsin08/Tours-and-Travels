@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tourist Place</title>
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        /* Container Styling */
+        .container {
+            width: 50%;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Title Styling */
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            font-size: 14px;
+            color: #555;
+            background-color: #f4f4f4;
+        }
+
+        td {
+            padding: 12px;
+            font-size: 14px;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+        }
+
+        /* Form Input Styling */
+        input[type="text"],
+        input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="file"]:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        /* Image Preview Styling */
+        img {
+            max-width: 150px;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        /* Button Styling */
+        .butt {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .butt:hover {
+            background-color: #45a049;
+        }
+
+        /* Mobile Responsiveness */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+            }
+
+            h1 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Tourist Place</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="name">Name:</label></th>
+                    <td><input type="text" name="name" value="{{ area.instance.name }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="discription">Description:</label></th>
+                    <td><input type="text" name="discription" value="{{ area.instance.discription }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="image">Image:</label></th>
+                    <td>
+                        {% if area.instance.image %}
+                            <img src="{{ area.instance.image.url }}" alt="Current image">
+                        {% endif %}
+                        <input type="file" name="image">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2"><input class="butt" type="submit" value="Update Package"></th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

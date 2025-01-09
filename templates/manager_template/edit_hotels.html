@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Tourist Place</title>
+    <style>
+        /* General body and container styles */
+        body {
+            font-family: Arial, sans-serif;
+            background:url("{% static 'images/indoors-4234071.jpg' %}");
+            margin: 0;
+            padding: 0;
+            background-size:cover;
+        }
+
+        .container {
+            width: 60%;
+            margin: 30px auto;
+<!--            background-color: #fff;-->
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 8px 12px;
+<!--            background-color: #f1f1f1;-->
+            color: #333;
+        }
+
+        td {
+            padding: 8px 12px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        img {
+            max-width: 200px;
+            max-height: 150px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Responsive design for smaller screens */
+        @media screen and (max-width: 768px) {
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            table, th, td {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Hotel</h1>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="name">Name:</label></th>
+                    <td><input type="text" name="name" value="{{ joy.instance.name }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="description">Description:</label></th>
+                    <td><input type="text" name="description" value="{{ joy.instance.description }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="address">Address:</label></th>
+                    <td><input type="text" name="address" value="{{ joy.instance.address }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="phone_number">Phone Number:</label></th>
+                    <td><input type="text" name="phone_number" value="{{ joy.instance.phone_number }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="email">Email:</label></th>
+                    <td><input type="email" name="email" value="{{ joy.instance.email }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="rating">Rating:</label></th>
+                    <td><input type="number" name="rating" value="{{ joy.instance.rating }}" required></td>
+                </tr>
+
+                <tr>
+                    <th><label for="image">Image:</label></th>
+                    <td>
+                        {% if joy.instance.image %}
+                            <img src="{{ joy.instance.image.url }}" alt="Current image">
+                        {% endif %}
+                        <input type="file" name="image">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th colspan="2">
+                        <input type="submit" value="Update Hotel">
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </div>
+</body>
+</html>

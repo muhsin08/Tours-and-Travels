@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Details</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+
+        .booking-card {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .booking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .booking-card .info {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .booking-card .info .label {
+            font-weight: bold;
+            color: #34495e;
+            margin-bottom: 5px;
+        }
+
+        .booking-card .info .value {
+            color: #7f8c8d;
+            font-size: 16px;
+        }
+
+        .booking-card .info .value a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .booking-card .info .value a:hover {
+            text-decoration: underline;
+        }
+
+        .booking-card .separator {
+            margin: 10px 0;
+            border-top: 1px solid #ecf0f1;
+            padding-top: 10px;
+        }
+
+        .booking-card .separator .label {
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        .booking-card .separator .value {
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Booking Details</h1>
+        {% for use in book %}
+        <div class="booking-card">
+            <div class="info">
+                <span class="label">Spot:</span>
+                <span class="value">{{ use.packageid.name }}</span>
+            </div>
+            <div class="info">
+                <span class="label">Account Number:</span>
+                <span class="value">{{ use.accountnumber }}</span>
+            </div>
+            <div class="info">
+                <span class="label">Booking Date:</span>
+                <span class="value">{{ use.booking_date }}</span>
+            </div>
+            <div class="separator">
+                <span class="label">Name Details:</span>
+                <span class="value">{{ use.name_details }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Room Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        form {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        th {
+            width: 30%;
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        td input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .form-container {
+            width: 100%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table>
+                <tr>
+                    <th><label for="number">Room Number:</label></th>
+                    <td><input type="text" name="number" value="{{ try.number }}"></td>
+                </tr>
+
+                <tr>
+                    <th><label for="floor">Floor:</label></th>
+                    <td><input type="number" name="floor" value="{{ try.floor }}"></td>
+                </tr>
+
+                <tr>
+                    <th><label for="capacity">Capacity:</label></th>
+                    <td><input type="number" name="capacity" value="{{ try.capacity }}"></td>
+                </tr>
+
+                <tr>
+                    <th><label for="description">Description:</label></th>
+                    <td><input type="text" name="description" value="{{ try.description }}"></td>
+                </tr>
+            </table>
+            <button type="submit" value="save">Save</button>
+        </form>
+    </div>
+</body>
+</html>

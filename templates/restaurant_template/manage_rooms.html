@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Information</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8; /* Light background color */
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .room-container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .room-container:hover {
+            transform: translateY(-5px); /* Subtle hover effect */
+        }
+
+        .room-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .room-table th,
+        .room-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .room-table th {
+            width: 30%;
+            color: #444;
+            font-weight: 600;
+        }
+
+        .room-table td {
+            width: 70%;
+            color: #555;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .edit-btn,
+        .delete-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 48%;
+            text-align: center;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+
+        .delete-btn {
+            background-color: #FF6347; /* Red */
+            color: white;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #e55347; /* Darker red on hover */
+        }
+
+        /* For mobile responsiveness */
+        @media (max-width: 768px) {
+            .room-table th, .room-table td {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .edit-btn, .delete-btn {
+                font-size: 14px;
+                padding: 10px;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            .button-container {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    {% for try in play %}
+    <div class="room-container">
+        <table class="room-table">
+            <tr>
+                <th><label>Room Number: </label></th>
+                <td>{{ try.number }}</td>
+            </tr>
+            <tr>
+                <th><label>Floor: </label></th>
+                <td>{{ try.floor }}</td>
+            </tr>
+            <tr>
+                <th><label>Capacity: </label></th>
+                <td>{{ try.capacity }}</td>
+            </tr>
+            <tr>
+                <th><label>Description: </label></th>
+                <td>{{ try.description }}</td>
+            </tr>
+        </table>
+
+        <div class="button-container">
+            <button class="edit-btn"><a href="{% url 'Edit' try.id %}" style="color: white; text-decoration: none;">Edit</a></button>
+            <button class="delete-btn"><a href="{% url 'Delete' try.id %}" style="color: white; text-decoration: none;">Delete</a></button>
+        </div>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
+

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints to Travel Agent</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+            color: #333;
+        }
+        .form-group input {
+            width: 95%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .form-group input[type="date"] {
+            font-size: 14px;
+        }
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        .form-group input:invalid {
+            border-color: #FF6B6B;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 10px;
+        }
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+        .view-reply-btn {
+            display: inline-block;
+            width: 94%;
+            padding: 12px;
+            text-align: center;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        .view-reply-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Travel Agent Complaints</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <input type="text" id="message" name="message" required placeholder="Enter your complaint...">
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+
+        <a href="{% url 'view_reply_travel' %}" class="view-reply-btn">View Reply</a>
+    </div>
+
+</body>
+</html>
+
+
