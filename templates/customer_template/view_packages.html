@@ -162,7 +162,7 @@
                                     <p class="card-text">{{ data.destinations }}</p>
                                     <p class="card-text date-text"><small>{{ data.available_from|date:"Y-m-d" }} TO {{ data.available_to|date:"Y-m-d" }}</small></p>
                                     <!-- Book Now button for each package -->
-                                    <a href="{% url 'add_bookings' %}?package_id={{ data.id }}">
+                                    <a href="{% url 'PackageBooking' data.id %}">
                                         <button class="book-now-btn">Book Now</button>
                                     </a>
                                 </div>

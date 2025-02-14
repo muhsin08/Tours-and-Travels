@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dish Booking Details</title>
+    <style>
+        /* General Page Styling */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            margin-bottom: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+            padding: 10px;
+            background-color: #f2f2f2;
+        }
+
+        td {
+            font-size: 16px;
+            color: #333;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        /* Styling for table rows */
+        tr:nth-child(even) td {
+            background-color: #f9f9f9;
+        }
+
+        tr:nth-child(odd) td {
+            background-color: #ffffff;
+        }
+
+        .form-container h3 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .form-container {
+                padding: 15px;
+            }
+
+            table th,
+            table td {
+                font-size: 14px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    {% for data in book %}
+        <div class="form-container">
+            <h3>Booking Details</h3>
+            <table>
+                <tr>
+                    <th>Quantity:</th>
+                    <td>{{ data.quantity }}</td>
+                </tr>
+                <tr>
+                    <th>Booking Date:</th>
+                    <td>{{ data.booking_date }}</td>
+                </tr>
+                <tr>
+                    <th>Special Requests:</th>
+                    <td>{{ data.special_requests }}</td>
+                </tr>
+                <tr>
+                    <th>Total Price:</th>
+                    <td>${{ data.total_price }}</td>
+                </tr>
+            </table>
+        </div>
+    {% endfor %}
+</div>
+</body>
+</html>

@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'travelagent_app',
     'manager_app',
     'customer_app',
-    'user_app'
+    'user_app',
+    'rest_framework'
 
 
 

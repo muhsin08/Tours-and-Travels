@@ -6,15 +6,19 @@ from restaurant_app.forms import *
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
+from django.contrib.auth import logout
+
+
 # Create your views here.
 
 class resturent_food(View):
     def get(self, request):
         my_resturent = restaurant_model.objects.filter(is_active=True)
-        return render(request, 'restaurant_template/register.html',{'form':my_resturent})
+        return render(request, 'restaurant_template/register.html', {'form': my_resturent})
 
     def post(self, request):
-        item = restaurant_form(request.POST)
+        item = restaurant_form(request.POST, request.FILES)
         if item.is_valid():
             kitchen = item.save(commit=False)
             dish = User_profile.objects.create_user(
@@ -26,13 +30,30 @@ class resturent_food(View):
             kitchen.resturent = dish
             kitchen.save()
 
-            return HttpResponse('''<script>alert(" Registration successfully.");window.location="restaurant_app/home_page"</script>''')
+            # Generate the correct URL using reverse()
+            redirect_url = reverse('user_app:userlogin')  # Make sure 'MainPageView' is the correct URL name
 
-        return render(request, 'restaurant_template/register.html', {'fry':item})
+            # Return the script with the redirection
+            return HttpResponse(f'''
+                <script>alert("Registration successful.");
+                window.location="{redirect_url}";
+                </script>
+            ''')
+        return render(request, 'restaurant_template/register.html', {'fry': item})
 class MainPageView(View):
 
     def get(self, request):
         return render(request, 'restaurant_template/homepage.html')
+
+
+
+class RestaurantLogoutView(View):
+    def post(self, request):
+        logout(request)
+        # Redirect after logging out
+        return redirect('user_app:userlogin')  # Update this to your login URL
+
+
 class rooms_availabilty(View):
     def get(self, request):
         return render(request, 'restaurant_template/add_room.html')
@@ -52,14 +73,20 @@ class rooms_availabilty(View):
             messages.error(request, 'Invalid session. Please log in again.')
             return redirect('user_app:userlogin')
 
-        agent = RoomFacilitiesForm(request.POST)
+        agent = RoomForm(request.POST,request.FILES)
         if agent.is_valid():
             c = agent.save(commit=False)
             c.lock = restaurant
             c.connect = login
             c.save()
-            messages.success(request, 'Rooms added successfully.')
-            return redirect('rooms_view')
+            redirect_url = reverse('rooms_view')  # Make sure 'MainPageView' is the correct URL name
+
+            # Return the script with the redirection
+            return HttpResponse(f'''
+                           <script>alert("Rooms add  successful.");
+                           window.location="{redirect_url}";
+                           </script>
+                       ''')
         else:
             messages.error(request, 'There was an error with your submission.')
             return render(request, 'restaurant_template/add_room.html', {'set': agent})
@@ -157,8 +184,14 @@ class editdish(View):
             data = item.save(commit=False)
             data.connect = User_profile.objects.get(id=request.session['login_id'])
             data.save()
-            messages.success(request, 'Dishes edited sucessfully')
-            return redirect('dish_view')
+            redirect_url = reverse('dish_view')  # Make sure 'MainPageView' is the correct URL name
+
+            # Return the script with the redirection
+            return HttpResponse(f'''
+                                       <script>alert("Edit dish  successful.");
+                                       window.location="{redirect_url}";
+                                       </script>
+                                   ''')
         return render(request, 'restaurant_template/edit_dish.html', {'menu': items})
 
 
@@ -172,26 +205,40 @@ class deletedish(LoginRequiredMixin, View):
         item.delete()
         messages.success(request, 'Dishes deleted successfully.')
         return redirect('dish_view')
-class view_mycomplaint(View):
+class view_complaints(View):
     def get(self,request):
-        comp=mycomplaints.objects.all()
-        return render(request,'restaurant_template/view_mycomplaint.html',{'comp':comp})
+        restaurant_id = request.session['login_id']
+        if not restaurant_id:
+            return redirect("user_app:userlogin")
+        variable=restaurant_model.objects.get(resturent=restaurant_id)
+        rest=mycomplaints.objects.filter(restaurant=variable)
+        return render(request,"restaurant_template/view_mycomplaint.html",{"my_rest":rest})
+
 class reply_mycomplaint(View):
     def get(self,request,id):
         comp = get_object_or_404(mycomplaints, pk=id)
-        form=reply_mycomplaints(instance=comp)
+        form=replyform(instance=comp)
         return render(request,'restaurant_template/reply_mycomplaint.html',{'form':form})
     def post(self,request,id):
         compl=get_object_or_404(mycomplaints,pk=id)
-        form=reply_mycomplaints(request.POST,instance=compl)
+        form=replyform(request.POST,instance=compl)
         if form.is_valid():
             reply=form.save(commit=False)
             reply.save()
             return HttpResponse("reply send")
         return render(request,'restaurant_template/reply_mycomplaint.html',{'form':form})
 
+class view_review(View):
+    def get(self, request):
+        restaurant_id = request.session['login_id']
+        if not restaurant_id:
+            return redirect("user_app:userlogin")
+        post = restaurant_model.objects.get(resturent=restaurant_id)
+        rest = Review.objects.filter(restaurant=post)
+        return render(request, "restaurant_template/view_reviews.html", {"my_rest": rest})
 
 
 
-    #rooms#
+
+
 

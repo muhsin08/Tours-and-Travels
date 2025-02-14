@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verification Dashboard</title>
     <style>
-
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f7fa;
@@ -62,7 +61,6 @@
             border-radius: 5px;
         }
 
-
         select {
             padding: 8px 12px;
             font-size: 16px;
@@ -85,12 +83,12 @@
             background-color: #45a049;
         }
 
-
         .empty {
             text-align: center;
             color: #888;
+            padding: 20px;
+            font-size: 1.2em;
         }
-
 
         @media (max-width: 768px) {
             .verify_box {
@@ -99,11 +97,45 @@
 
             table {
                 font-size: 14px;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            th, td {
+                display: block;
+                padding: 12px 10px;
+                text-align: left;
+            }
+
+            th {
+                background-color: #4CAF50;
+                color: white;
+                position: sticky;
+                top: 0;
+            }
+
+            td {
+                border: none;
+                border-bottom: 1px solid #ddd;
+                padding-left: 50%;
+                position: relative;
+            }
+
+            td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                font-weight: bold;
             }
 
             select, button {
                 width: 100%;
                 margin: 5px 0;
+            }
+
+            button {
+                margin-left: 0;
             }
         }
     </style>
@@ -134,11 +166,11 @@
             <tbody>
                 {% for user in user_status %}
                 <tr>
-                    <td>{{ user.username }}</td>
-                    <td>{{ user.email }}</td>
-                    <td>{{ user.get_user_type_display }}</td>
-                    <td>{{ user.get_status_display }}</td>
-                    <td>
+                    <td data-label="Username">{{ user.username }}</td>
+                    <td data-label="Email">{{ user.email }}</td>
+                    <td data-label="User Type">{{ user.get_user_type_display }}</td>
+                    <td data-label="Status">{{ user.get_status_display }}</td>
+                    <td data-label="Change Status">
                         <form action="{% url 'verification' user.id %}" method="post">
                             {% csrf_token %}
                             <select name="status">

@@ -166,7 +166,7 @@
         </div>
         <div class="right-side">
             <h2>Create Your Account</h2>
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="username">Username</label>
@@ -189,14 +189,18 @@
                     <div id="error3" class="error-message"></div>
                 </div>
                 <div class="form-group">
-                    <label for="business_name">Business Name</label>
-                    <input type="text" id="business_name" name="business_name" placeholder="Enter your business name" required>
+                    <label for="bussiness_name">Business Name</label>
+                    <input type="text" id="bussiness_name" name="bussiness_name" placeholder="Enter your business name" required>
                     <div id="error6" class="error-message"></div>
                 </div>
                 <div class="form-group">
                     <label for="tax_identification_number">Tax Identification Number</label>
                     <input type="number" id="tax_identification_number" name="tax_identification_number" placeholder="Enter your tax number" required>
                     <div id="error7" class="error-message"></div>
+                </div>
+                 <div class="form-group">
+                    <label for="image">Business Image</label>
+                    <input type="file" id="image" name="image" required aria-label="Business Image">
                 </div>
                 <button type="submit">Register</button>
                 <div class="google-signup">

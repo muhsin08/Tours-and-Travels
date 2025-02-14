@@ -132,42 +132,46 @@
     <h1>Our Menu</h1>
 
     {% for menu in fry %}
-        <div class="room-container">
-            <div class="title">{{ menu.name }}</div>
-            <table class="room-table">
-                <tr>
-                    <th><label>Dish Name: </label></th>
-                    <td>{{ menu.name }}</td>
-                </tr>
-                <tr>
-                    <th><label>Description: </label></th>
-                    <td>{{ menu.description }}</td>
-                </tr>
-                <tr>
-                    <th><label>Price: </label></th>
-                    <td class="price">{{ menu.price }}</td>
-                </tr>
-                <tr>
-                    <th><label>Category: </label></th>
-                    <td>{{ menu.category }}</td>
-                </tr>
-                <tr>
-                    <th><label>Image: </label></th>
-                    <td>
-                        {% if menu.image %}
-                            <img src="{{ menu.image.url }}" alt="Dish Image">
-                        {% else %}
-                            <p>No image available</p>
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-            <div class="button">
-                <!-- Edit and Delete buttons with appropriate links -->
-                <button class="edit"><a href="{% url 'dish_edit' menu.id %}">Edit</a></button>
-                <button class="dlt"><a href="{% url 'Delete_dish' menu.id %}">Delete</a></button>
-            </div>
+    <div class="room-container">
+        <div class="title">{{ menu.name }}</div>
+        <table class="room-table">
+            <tr>
+                <th><label>Dish Name: </label></th>
+                <td>{{ menu.name }}</td>
+            </tr>
+            <tr>
+                <th><label>Description: </label></th>
+                <td>{{ menu.description }}</td>
+            </tr>
+            <tr>
+                <th><label>Price: </label></th>
+                <td class="price">{{ menu.price }}</td>
+            </tr>
+            <tr>
+                <th><label>Category: </label></th>
+                <td>{{ menu.category }}</td>
+            </tr>
+            <tr>
+                <th><label>Availability: </label></th>
+                <td>{{ menu.availability }}</td>
+            </tr>
+            <tr>
+                <th><label>Image: </label></th>
+                <td>
+                    {% if menu.image %}
+                        <img src="{{ menu.image.url }}" alt="Dish Image">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </td>
+            </tr>
+        </table>
+        <div class="button">
+            <!-- Edit and Delete buttons with appropriate links -->
+            <a href="{% url 'dish_edit' menu.id %}" class="edit">Edit</a>
+            <a href="{% url 'Delete_dish' menu.id %}" class="dlt">Delete</a>
         </div>
+    </div>
     {% endfor %}
 
 </body>

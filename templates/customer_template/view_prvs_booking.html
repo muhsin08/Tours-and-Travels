@@ -2,26 +2,149 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Booking Details</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        /* Table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            color: #333;
+            font-weight: bold;
+        }
+
+        td {
+            background-color: #fff;
+            color: #555;
+            font-size: 16px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Header Styling */
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Booking Details Container */
+        .booking-details {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .booking-details h3 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .booking-details p {
+            color: #555;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        /* Button Styling */
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn:focus {
+            outline: none;
+        }
+
+        /* Responsive Design for Mobile */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .form-container {
+                padding: 15px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 <body>
-{% for data in mybook %}
-    <div class="form-container">
-        <table>
-            <tr>
-                <th><label>Place:</label></th>
-                <td>{{ data.packageid }}</td>
-            </tr>
-            <tr>
-                <th><label>Price:</label></th>
-                <td>{{ data.accountnumber }}</td>
-            </tr>
-            <tr>
-                <th><label>Duration Days:</label></th>
-                <td>{{ data.name_details }}</td>
-            </tr>
-        </table>
-    </div>
-{% endfor %}
+
+    <h1>Booking Details</h1>
+
+    {% for booking in mybook %}
+        <div class="booking-details">
+            <h3>Number of People: {{ booking.number_of_people }}</h3>
+            <p>Amount: ${{ booking.total_amount }}</p>
+            <p>Travel Dates: {{ booking.travel_dates }}</p>
+
+            <!-- Link to Process Payment -->
+            <a href="{% url 'PaymentProcess' booking.id %}" class="btn">Proceed to Payment</a>
+        </div>
+    {% endfor %}
+
 </body>
 </html>

@@ -144,6 +144,15 @@
                         </select>
                     </td>
                 </tr>
+                   <tr>
+                    <th><label for="availability">Availability:</label></th>
+                    <td>
+                        <select name="availability" id="availability">
+                            <option value="available" {% if menu.availability == "available" %}selected{% endif %}>Available</option>
+                            <option value="not_available" {% if menu.availability == "not_available" %}selected{% endif %}>Not Available</option>
+                        </select>
+                    </td>
+                </tr>
                 <tr>
                     <th><label for="image">Image:</label></th>
                     <td>

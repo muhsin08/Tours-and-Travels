@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Form</title>
+    <style>
+        /* Global body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Form container */
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        /* Heading */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* Input fields */
+        .inp {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        /* Table for form elements */
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 12px;
+            vertical-align: middle;
+        }
+
+        /* Labels for input fields */
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* Submit button styling */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Extra paragraph for links or text under the form */
+        .form-container p {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .form-container p a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+
+        .form-container p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Payment Form</h2>
+        <form method="POST" action="{}">
+            {% csrf_token %}
+            <table>
+                <!-- Payment Method -->
+                <tr>
+                    <td><label for="payment_method">Payment Method</label></td>
+                    <td>
+                        <select class="inp" name="payment_method" id="payment_method" required>
+                            <option value="" disabled selected>-- Select Payment Method --</option>
+                            <option value="credit_card">Credit Card</option>
+                            <option value="debit_card">Debit Card</option>
+                            <option value="paypal">PayPal</option>
+                            <option value="bank_transfer">Bank Transfer</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <!-- Payment Date -->
+                <tr>
+                    <td><label for="payment_date">Payment Date</label></td>
+                    <td><input class="inp" type="date" id="payment_date" name="payment_date" required></td>
+                </tr>
+
+                <!-- Display Total Amount -->
+                <tr>
+                    <td><label for="total_amount">Amount</label></td>
+                    <td><p>{{ pay.total_amount }}</p></td> <!-- Use the pay object directly -->
+                </tr>
+
+                <!-- Submit Button -->
+                <tr>
+                    <td colspan="2" style="text-align: center;">
+                        <button type="submit">Submit Payment</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</body>
+</html>

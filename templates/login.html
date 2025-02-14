@@ -19,6 +19,70 @@
             align-items: center;
             height: 100vh;
             background-color: rgba(180, 220, 204, 0.3);
+            flex-direction: column; /* Stack content vertically */
+            position: relative; /* Needed for positioning the buttons */
+        }
+
+        /* Button Container at top-right */
+        .button-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .button-container a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            position: relative; /* Needed for positioning the dropdown */
+        }
+
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+
+        /* Dropdown Menu Styling */
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 30px; /* Position the dropdown below the Sign Up button */
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            width: 150px;
+            z-index: 10; /* Ensure dropdown is on top */
+        }
+
+        .button-container a:hover + .dropdown, /* Show dropdown when hovering over 'Sign Up' */
+        .dropdown:hover {
+            display: block;
+        }
+
+        .dropdown ul {
+            list-style: none;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .dropdown ul li {
+            margin: 5px 0;
+        }
+
+        .dropdown ul li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+        }
+
+        .dropdown ul li a:hover {
+            background-color: #f0f0f0;
         }
 
         .container {
@@ -55,16 +119,6 @@
             font-size: 16px;
             margin-bottom: 20px;
             color: white;
-        }
-
-        .left-side button {
-            background-color: #ff6a00;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 5px;
         }
 
         .right-side {
@@ -122,16 +176,6 @@
             top: -10px;
             font-size: 12px;
             color: #ff6a00;
-        }
-
-        .checkbox {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .checkbox input[type="checkbox"] {
-            margin-right: 5px;
         }
 
         .right-side button {
@@ -226,6 +270,20 @@
     </style>
 </head>
 <body>
+    <!-- Buttons at top-right -->
+    <div class="button-container">
+        <a href="#">Sign Up</a>
+        <div class="dropdown">
+            <ul>
+                <li><a href="{% url 'restaurant'%}">Restaurant</a></li>
+                <li><a href="{% url 'customer'%}">Customer</a></li>
+                <li><a href="{% url 'travelagent'%}">Travelagent</a></li>
+            </ul>
+        </div>
+        <a href="#">Sign In</a>
+    </div>
+
+    <!-- Login Container -->
     <div class="container">
         <div class="left-side">
             <div class="content">
@@ -239,7 +297,7 @@
                 {% csrf_token %}
                 <div class="floating-label">
                     <input type="text" id="username" name="username" placeholder=" " required>
-                    <label for="email">User Name</label>
+                    <label for="username">User Name</label>
                 </div>
                 <div class="floating-label">
                     <input type="password" id="password" name="password" placeholder=" " required>

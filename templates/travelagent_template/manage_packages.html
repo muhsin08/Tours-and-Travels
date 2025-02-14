@@ -7,46 +7,67 @@
     <title>Package Details</title>
     <style>
         body {
-            background-color: rgb(65, 69, 8);
-            background-size: cover;
-            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
             color: white;
+            padding: 20px 0;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         table {
-            width: 70%;
+            width: 100%;
             border-collapse: collapse;
-            margin: 20px auto;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            margin-bottom: 30px;
         }
 
         th, td {
-            padding: 12px;
+            padding: 15px;
             text-align: left;
             border-bottom: 1px solid #ddd;
         }
 
         th {
-            background-color: wheat;
-            color: black;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
         }
 
         .form-container {
-            width: 30%;
-            margin: 0 auto;
+            margin-top: 20px;
         }
 
         .edit, .dlt {
-            padding: 10px 20px;
-            font-size: 18px;
+            padding: 12px 20px;
+            font-size: 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
-            width: 150px;
-            margin: 10px 0;
+            margin-top: 20px;
             display: inline-block;
+            text-decoration: none;
         }
 
         .edit {
@@ -67,101 +88,90 @@
             background-color: #e53935;
         }
 
-        .button a {
-            color: white;
-            text-decoration: none;
-        }
-
-        .button {
-            text-align: center;
-        }
-
-        .inp {
-            height: 30px;
-            text-align: center;
-        }
-
-        .form-container h1 {
-            text-shadow: 1px 1px 2px black;
-            text-align: center;
-        }
-
-        /* Image styling */
         .image-container img {
             width: 100px;
             height: auto;
             border-radius: 8px;
         }
 
-        /* Responsive Design */
+        
         @media (max-width: 768px) {
-            table {
+            .container {
                 width: 90%;
+            }
+
+            table {
+                width: 100%;
             }
 
             .edit, .dlt {
                 width: 100%;
-                font-size: 16px;
-                padding: 12px 0;
+                padding: 12px;
             }
         }
     </style>
 </head>
 <body>
 
-{% for data in pack %}
-    <div class="form-container">
-        <table>
-            <tr>
-                <th><label>Name:</label></th>
-                <td>{{ data.name }}</td>
-            </tr>
-            <tr>
-                <th><label>Price:</label></th>
-                <td>{{ data.price }}</td>
-            </tr>
-            <tr>
-                <th><label>Duration Days:</label></th>
-                <td>{{ data.duration_days }}</td>
-            </tr>
-            <tr>
-                <th><label>Available From:</label></th>
-                <td>{{ data.available_from }}</td>
-            </tr>
-            <tr>
-                <th><label>Available To:</label></th>
-                <td>{{ data.available_to }}</td>
-            </tr>
-            <tr>
-                <th><label>Package Type:</label></th>
-                <td>{{ data.package_type }}</td>
-            </tr>
-            <tr class="image-container">
-                <th><label>Image:</label></th>
-                <td>
-                    {% if data.image %}
-                        <img src="{{ data.image.url }}" alt="Package Image">
-                    {% else %}
-                        <p>No image available</p>
-                    {% endif %}
-                </td>
-            </tr>
-            <tr>
-                <th><label>Destinations:</label></th>
-                <td>{{ data.destinations }}</td>
-            </tr>
-            <tr>
-                <th><label>Description:</label></th>
-                <td>{{ data.description }}</td>
-            </tr>
-        </table>
+<header>
+    Package Details
+</header>
 
-        <div class="button">
-            <button class="edit"><a href="{% url 'edit' data.id %}">Edit</a></button>
-            <button class="dlt"><a href="{% url 'delete' data.id %}">Delete</a></button>
+<div class="container">
+    {% for data in pack %}
+        <div class="form-container">
+            <table>
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ data.name }}</td>
+                </tr>
+                <tr>
+                    <th>Price:</th>
+                    <td>{{ data.price }}</td>
+                </tr>
+                <tr>
+                    <th>Duration (Days):</th>
+                    <td>{{ data.duration_days }}</td>
+                </tr>
+                <tr>
+                    <th>Available From:</th>
+                    <td>{{ data.available_from }}</td>
+                </tr>
+                <tr>
+                    <th>Available To:</th>
+                    <td>{{ data.available_to }}</td>
+                </tr>
+                <tr>
+                    <th>Package Type:</th>
+                    <td>{{ data.package_type }}</td>
+                </tr>
+                <tr class="image-container">
+                    <th>Image:</th>
+                    <td>
+                        {% if data.image %}
+                            <img src="{{ data.image.url }}" alt="Package Image">
+                        {% else %}
+                            <p>No image available</p>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Destinations:</th>
+                    <td>{{ data.destinations }}</td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>{{ data.description }}</td>
+                </tr>
+            </table>
+
+            <div class="form-buttons">
+                <a href="{% url 'edit' data.id %}" class="edit">Edit</a>
+                <a href="{% url 'delete' data.id %}" class="dlt">Delete</a>
+            </div>
         </div>
-    </div>
-{% endfor %}
+    {% endfor %}
+</div>
 
 </body>
 </html>

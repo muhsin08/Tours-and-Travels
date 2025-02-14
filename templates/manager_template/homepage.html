@@ -137,11 +137,11 @@
 <div class="menubar">
     <div class="ic">
         <i class="fas fa-plane"></i>
-        <h1 class="logo">CAPITAL<span>TRAVELS</span></h1>
+        <h1 class="logo">adminpage</span></h1>
     </div>
     <ul>
         <li>
-            <a href="{% url 'verify'%}">Travel Agents</a>
+            <a href="{% url 'verify'%}">Travelagent Verify</a>
 
         </li>
         <li>
@@ -172,12 +172,9 @@
             </div>
         </li>
         <li>
-            <a href="#">Videos of Places</a>
+            <a href="{% url 'add_videos'%}">Videos of Places</a>
             <div class="dropdownmenu">
-                <ul>
-                    <li><a href="{% url 'add_videos'%}">Add</a></li>
-                    <li><a href="#">Manage</a></li>
-                </ul>
+
             </div>
         </li>
         <li>
@@ -211,6 +208,11 @@
                <a href="{% url 'view_feedback' %}">view feedbacks</a>
 
         </li>
+         <li>
+   <form method="POST" action="{% url 'logout' %}">
+           {% csrf_token %}
+           <button type="submit">Logout</button>
+       </form>    </li>
     </ul>
 </div>
 

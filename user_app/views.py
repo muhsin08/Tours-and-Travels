@@ -36,9 +36,7 @@ class User_login(View):
             "CUSTOMER": "user_app:loadcustomer",
         }
         username = request.POST.get("username")
-        print(username,'ffff')
         password = request.POST.get("password")
-        print(password,'hhhh')
         authenticated = authenticate(username=username, password=password)
         try:
             user = User_profile.objects.get(username=username)

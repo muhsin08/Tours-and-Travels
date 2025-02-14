@@ -91,20 +91,28 @@
         {% for use in book %}
         <div class="booking-card">
             <div class="info">
-                <span class="label">Spot:</span>
-                <span class="value">{{ use.packageid.name }}</span>
+                <span class="label">Package:</span>
+                <span class="value">{{ use.package.name }}</span>
             </div>
-            <div class="info">
-                <span class="label">Account Number:</span>
-                <span class="value">{{ use.accountnumber }}</span>
+             <div class="info">
+                <span class="label">User:</span>
+                <span class="value">{{ use.user.username }}</span>
             </div>
-            <div class="info">
+             <div class="info">
                 <span class="label">Booking Date:</span>
                 <span class="value">{{ use.booking_date }}</span>
             </div>
+            <div class="info">
+                <span class="label">Number Of People:</span>
+                <span class="value">{{ use.number_of_people }}</span>
+            </div>
+            <div class="info">
+                <span class="label">Package_Type:</span>
+                <span class="value">{{ use.package.package_type}}</span>
+            </div>
             <div class="separator">
-                <span class="label">Name Details:</span>
-                <span class="value">{{ use.name_details }}</span>
+                <span class="label">Total Amount:</span>
+                <span class="value">{{ use.total_amount }}</span>
             </div>
         </div>
         {% endfor %}

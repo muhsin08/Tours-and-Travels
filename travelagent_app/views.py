@@ -7,6 +7,8 @@ from user_app .models import User_profile
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import logout
+
 
 
 
@@ -18,7 +20,7 @@ class travel_agent(View):
         return render(request, 'travelagent_template/register_tvl.html',{'form':my_travelagent})
 
     def post(self, request):
-        tripp = travelagent_form(request.POST)
+        tripp = travelagent_form(request.POST,request.FILES)
         if tripp.is_valid():
             place = tripp.save(commit=False)
             trend = User_profile.objects.create_user(
@@ -29,9 +31,14 @@ class travel_agent(View):
             )
             place.travelagent = trend
             place.save()
-            return HttpResponse('''<script>alert("Registration added successfully.");window.location="turfapp/view/"</script>''')
+            redirect_url = reverse('user_app:userlogin')  # Make sure 'MainPageView' is the correct URL name
 
-
+            # Return the script with the redirection
+            return HttpResponse(f'''
+                           <script>alert("Registration successful.");
+                           window.location="{redirect_url}";
+                           </script>
+                       ''')
 
         return render(request, 'travelagent_template/register_tvl.html', {'form':tripp})
 
@@ -61,8 +68,14 @@ class travel_packages(View):
             c.lock = travelagent
             c.connect = login
             c.save()
-            messages.success(request, 'Package added successfully.')
-            return redirect('package_view')
+            redirect_url = reverse('package_view')  # Make sure 'MainPageView' is the correct URL name
+
+            # Return the script with the redirection
+            return HttpResponse(f'''
+                           <script>alert("Packages added successful.");
+                           window.location="{redirect_url}";
+                           </script>
+                       ''')
         else:
             messages.error(request, 'There was an error with your submission.')
             return render(request, 'travelagent_template/pckages_add.html', {'form': agent})
@@ -105,31 +118,47 @@ class deletepackage(LoginRequiredMixin, View):
         return redirect('package_view')
 
 class view_complaint(View):
-    def get(self,request):
-        comp=complaints.objects.all()
-        return render(request,'travelagent_template/view_complaints.html',{'comp':comp})
+    def get(self, request):
+        travelagent_id = request.session['login_id']
+        if not travelagent_id:
+            return redirect("user_app:userlogin")
+        packs = travelagent_model.objects.get(travelagent=travelagent_id)
+        rest = Complaints.objects.filter(travelagent=packs)
+        return render(request, "travelagent_template/view_complaints.html", {"my_rest": rest})
+
 class reply_complaint(View):
-    def get(self,request,id):
-        comp = get_object_or_404(complaints, pk=id)
-        form=reply_complaints(instance=comp)
-        return render(request,'travelagent_template/reply_complaints.html',{'form':form})
-    def post(self,request,id):
-        compl=get_object_or_404(complaints,pk=id)
-        form=reply_complaints(request.POST,instance=compl)
+    def get(self, request, id):
+        comp = get_object_or_404(Complaints, pk=id)
+        form = reply_form(instance=comp)
+        return render(request, 'travelagent_template/reply_complaints.html', {'form': form})
+    def post(self, request, id):
+        compl = get_object_or_404(Complaints, pk=id)
+        form = reply_form(request.POST, instance=compl)
         if form.is_valid():
-            reply=form.save(commit=False)
+            reply = form.save(commit=False)
             reply.save()
             return HttpResponse("reply send")
-        return render(request,'travelagent_template/reply_complaints.html',{'form':form})
+            return render(request, 'travelagent_template/reply_complaints.html', {'form': form})
+class view_travelreview(View):
+    def get(self, request):
+        travelagent_id = request.session['login_id']
+        if not travelagent_id:
+            return redirect("user_app:userlogin")
+        trav = travelagent_model.objects.get(travelagent=travelagent_id)
+        data = Reviews.objects.filter(travelagent=trav)
+        return render(request, "travelagent_template/viewreview.html", {"my_rest": data})
+class TravelagentLogoutView(View):
+    def post(self, request):
+        logout(request)
+        # Redirect after logging out
+        return redirect('user_app:userlogin')  # Update this to your login URL
 
 
 
 
 
-                              #Delete Posts
 
 
 
 
-                       #Edit Post
 

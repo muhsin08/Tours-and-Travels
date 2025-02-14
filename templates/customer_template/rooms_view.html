@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Rooms</title>
+
+    <!-- Internal CSS for Styling -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        form {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        label {
+            font-size: 16px;
+        }
+
+        input[type="date"], button {
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        .room-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .room-item {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .room-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .room-item h3 {
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #2c3e50;
+        }
+
+        .room-item p {
+            margin: 5px 0;
+            color: #7f8c8d;
+        }
+
+        .room-item .price {
+            font-weight: bold;
+            color: #27ae60;
+            font-size: 1.2em;
+        }
+
+        .room-item a {
+            background-color: #2ecc71;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .room-item a:hover {
+            background-color: #27ae60;
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #888;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Available Rooms</h1>
+    </header>
+
+    <div class="container">
+        <form method="get" action="{% url 'available_rooms' %}">
+            <div>
+                <label for="check_in_date">Check-in Date:</label>
+                <input type="date" name="check_in_date" required>
+            </div>
+            <div>
+                <label for="check_out_date">Check-out Date:</label>
+                <input type="date" name="check_out_date" required>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+
+        <ul class="room-list">
+            {% for room in available_rooms %}
+            <li class="room-item">
+                <h3>{{ room.number }} - {{ room.category }}</h3>
+                <p>{{ room.description }}</p>
+                <p class="price">Price per night: ${{ room.price_per_night }}</p>
+                <a href="{% url 'room_booking' room.id %}">Book this room</a>
+            </li>
+            {% empty %}
+            <li class="empty-message">No rooms available for the selected dates.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

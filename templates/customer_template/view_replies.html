@@ -85,6 +85,12 @@
             color: #999;
         }
 
+        /* Optional hover effect for the feedback cards */
+        .booking-item:hover {
+            background-color: #eef2f4;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+        }
+
     </style>
 </head>
 <body>
@@ -92,28 +98,32 @@
     <div class="container">
         <h1>User Feedback</h1>
 
-        {% for bry in replies %}
-        <div class="booking-item">
-            <div class="details">
-                <div>
-                    <span class="label">Feedback:</span>
-                    <span class="value">{{ bry.content }}</span>
-                </div>
-                <div>
-                    <span class="label">Title:</span>
-                    <span class="value">{{ bry.title }}</span>
-                </div>
-                <div>
-                    <span class="label">Reply:</span>
-                    <span class="value">{{ bry.reply }}</span>
-                </div>
-                <div>
-                    <span class="label">Reply Date:</span>
-                    <span class="value">{{ bry.reply_date }}</span>
+        {% if replies %}
+            {% for bry in replies %}
+            <div class="booking-item">
+                <div class="details">
+                    <div>
+                        <span class="label">Feedback:</span>
+                        <span class="value">{{ bry.content }}</span>
+                    </div>
+                    <div>
+                        <span class="label">Title:</span>
+                        <span class="value">{{ bry.title }}</span>
+                    </div>
+                    <div>
+                        <span class="label">Reply:</span>
+                        <span class="value">{{ bry.reply }}</span>
+                    </div>
+                    <div>
+                        <span class="label">Reply Date:</span>
+                        <span class="value">{{ bry.reply_date}}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>No feedback available.</p>
+        {% endif %}
 
     </div>
 

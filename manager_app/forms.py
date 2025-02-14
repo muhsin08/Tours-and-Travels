@@ -3,12 +3,12 @@ from .models import *
 
 class turistplace_form(forms.ModelForm):
     class Meta:
-        model=add_turistplaces
-        fields=['name','discription','image']
+        model=AddTouristPlace
+        fields=['name','description','image']
 
 class SpotForm(forms.ModelForm):
     class Meta:
-        model = add_Spot
+        model = AddSpot
         fields = ['name', 'description', 'location', 'category', 'image']
 class festival_form(forms.ModelForm):
     class Meta:
@@ -30,11 +30,8 @@ class replyform(forms.ModelForm):
     class Meta:
         model=send_feedback
         fields = ['reply', 'reply_date']
-class booking_forms(forms.ModelForm):
-    class Meta:
-        model=booking
-        fields=['packageid','accountnumber','booking_date','name_details']
-# class place_searchform(forms.ModelForm):
-#     class Meta:
-#         model=add_turistplaces
+
+class SearchForm(forms.Form):
+    search_term = forms.CharField(label='travel_package', max_length=100, required=False)
+
         

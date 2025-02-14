@@ -80,6 +80,7 @@
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            margin-top: 10px;
         }
         .view-reply-button:hover {
             background-color: #218838;
@@ -90,7 +91,7 @@
 
     <div class="form-container">
         <h2>Restaurant Complaints</h2>
-        <form method="POST">
+        <form method="POST" action="">
             {% csrf_token %}
             <div class="form-group">
                 <label for="message">Message:</label>
@@ -102,9 +103,11 @@
             </div>
             <button type="submit">Submit</button>
         </form>
-        <a href="{% url 'view_reply_rest' %}" class="view-reply-button">View Reply</a>
+
+        <a href="{% url 'view_restreply'%}" class="view-reply-button">View Reply</a>
     </div>
 
 </body>
 </html>
+
 

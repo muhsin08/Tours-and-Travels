@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* Reduce the image height */
+        .carousel-item img {
+            height: 400px; /* You can adjust this value to your preferred height */
+            object-fit: cover;
+             width:100%;/* Ensure the image covers the area while maintaining aspect ratio */
+        }
+
+        /* Center the text and make it bold */
+        .college-details {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Optional styling for the container */
+        .container {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Carousel Section -->
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ det.image.url }}" alt="Spot Image" class="d-block w-100">
+            </div>
+        </div>
+    </div>
+
+    <!-- Spot Details Section -->
+    <div class="container">
+        <h1 class="text-center">Spot Details</h1> <!-- Center title -->
+        <div class="college-details">
+            <p><strong>Spot Name:</strong> {{ det.name }}</p>
+            <p><strong>Location:</strong> {{ det.location }}</p>
+            <p><strong>Category:</strong> {{ det.category }}</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

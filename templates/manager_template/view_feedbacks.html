@@ -2,141 +2,175 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Feedback</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        * {
+        /* Basic resets and body styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7fc;
-            padding: 20px;
-        }
-
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        h1 {
-            font-size: 30px;
+            background-color: #f4f7fb;
             color: #333;
-            margin-bottom: 30px;
-            text-align: center;
         }
 
-        .booking-item {
-            background-color: #fafafa;
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
             padding: 20px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Header styling */
+        h1 {
+            font-size: 40px;
+            text-align: center;
+            color: #333;
             margin-bottom: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-        }
-
-        .booking-item:hover {
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .booking-header {
-            font-size: 20px;
             font-weight: bold;
-            color: #4CAF50;
-            margin-bottom: 15px;
-            text-transform: uppercase;
         }
 
-        .details {
+        h2 {
+            font-size: 26px;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        /* Feedback list section */
+        .feedback-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Individual feedback post */
+        .post {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .post:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Post header (created date) */
+        .feedback-header {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        /* Customer feedback block */
+        .customer-feedback {
+            background-color: #f1f8e9;
+            border-left: 5px solid #4CAF50;
+            padding: 18px;
             font-size: 16px;
             color: #555;
+            margin-bottom: 18px;
+            border-radius: 8px;
         }
 
-        .details .label {
-            font-weight: bold;
-            color: #333;
+        .customer-feedback p {
+            margin: 12px 0;
         }
 
-        .details .value {
-            margin-left: 8px;
-            color: #777;
+        /* No feedback available styling */
+        .no-feedback {
+            font-size: 20px;
+            color: #f44336;
+            text-align: center;
+            margin-top: 40px;
         }
 
-        .reply-button-container {
-            margin-top: 15px;
-            text-align: right;
-        }
-
-        .reply-button {
+        /* Reply Button styling */
+        .btn-reply {
+            display: inline-block;
+            padding: 12px 20px;
             background-color: #4CAF50;
-            font-size: 16px;
-            padding: 8px 20px;
+            color: #fff;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
             transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .reply-button:hover {
+        .btn-reply:hover {
             background-color: #45a049;
         }
 
         @media (max-width: 768px) {
             .container {
-                width: 95%;
+                padding: 10px;
             }
 
             h1 {
-                font-size: 26px;
+                font-size: 32px;
             }
 
-            .booking-header {
-                font-size: 18px;
+            h2 {
+                font-size: 20px;
             }
 
-            .details {
-                font-size: 14px;
-            }
-
-            .reply-button {
-                font-size: 14px;
-                padding: 6px 15px;
+            .post {
+                padding: 15px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>User Feedback</h1>
-        {% for bry in feedback %}
-        <div class="booking-item">
-            <div class="booking-header">Feedback from {{ bry.username }}</div>
-            <div class="details">
-                <div>
-                    <span class="label">Title:</span>
-                    <span class="value">{{ bry.title }}</span>
-                </div>
-                <div>
-                    <span class="label">Feedback:</span>
-                    <span class="value">{{ bry.content }}</span>
-                </div>
+        <h1>Feedback View</h1>
+
+        {% if customer %}
+            <h2>Feedback for Customer: {{ customer.name }}</h2>
+        {% else %}
+            <h2>All Feedback</h2>
+        {% endif %}
+
+        {% if media %}
+            <div class="feedback-list">
+                {% for post in media %}
+                    <div class="post">
+                        <div class="feedback-header">
+                            <p><strong>Feedback Created At:</strong> {{ post.created_at }}</p>
+                        </div>
+
+                        {% if post.lock %}
+                            <div class="customer-feedback">
+                                <div>
+                                    <i class="fa-regular fa-user"></i>
+                                    <p>{{ post.co }}</p>
+                                </div>
+                                <p><strong>:</strong> "{{ post.content }}"</p>
+                            </div>
+                        {% else %}
+                            <p>No feedback available for this post.</p>
+                        {% endif %}
+
+                        <a href="{% url 'reply_feeback' post.id %}" class="btn-reply">Reply</a>
+                    </div>
+                {% endfor %}
             </div>
-            <div class="reply-button-container">
-                <!-- Corrected Button -->
-                <a href="{% url 'reply_feeback' bry.id %}" class="reply-button">
-                    Reply
-                </a>
-            </div>
-        </div>
-        {% endfor %}
+        {% else %}
+            <p class="no-feedback">No feedback available.</p>
+        {% endif %}
     </div>
 </body>
 </html>
-
 

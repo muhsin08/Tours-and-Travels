@@ -24,7 +24,7 @@ urlpatterns = [
     path('restaurant/',include('restaurant_app.urls')),
     path('customer/',include('customer_app.urls')),
     path('travelagent/', include('travelagent_app.urls')),
-    path('user/', include(('user_app.urls', 'user'), namespace='user_app')),
+    path('', include(('user_app.urls', 'user'), namespace='user_app')),
     path('manager/',include('manager_app.urls'))
 
 ]

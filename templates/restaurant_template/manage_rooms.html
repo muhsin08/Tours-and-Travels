@@ -110,34 +110,56 @@
 </head>
 <body>
 
-    {% for try in play %}
+    {% for room in play %}
     <div class="room-container">
         <table class="room-table">
             <tr>
-                <th><label>Room Number: </label></th>
-                <td>{{ try.number }}</td>
-            </tr>
-            <tr>
-                <th><label>Floor: </label></th>
-                <td>{{ try.floor }}</td>
+                <th><label>Room Type: </label></th>
+                <td>{{ room.room_type }}</td>
             </tr>
             <tr>
                 <th><label>Capacity: </label></th>
-                <td>{{ try.capacity }}</td>
+                <td>{{ room.capacity }}</td>
             </tr>
             <tr>
-                <th><label>Description: </label></th>
-                <td>{{ try.description }}</td>
+                <th><label>Price per Night: </label></th>
+                <td>{{ room.price_per_night }}</td>
+            </tr>
+             <tr>
+                <th><label>Facilities: </label></th>
+                <td>{{ room.facilities }}</td>
+            </tr>
+            <tr>
+
+                <th><label>Availability Start: </label></th>
+                <td>{{ room.availability_start }}</td>
+            </tr>
+            <tr>
+                <th><label>Availability End: </label></th>
+                <td>{{ room.availability_end }}</td>
+            </tr>
+            <tr>
+                <th><label>Image: </label></th>
+                <td>
+                    {% if room.image %}
+                        <img src="{{ room.image.url }}" alt="Room Image" style="max-width: 200px;">
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                </td>
             </tr>
         </table>
 
         <div class="button-container">
-            <button class="edit-btn"><a href="{% url 'Edit' try.id %}" style="color: white; text-decoration: none;">Edit</a></button>
-            <button class="delete-btn"><a href="{% url 'Delete' try.id %}" style="color: white; text-decoration: none;">Delete</a></button>
+            <button class="edit-btn">
+                <a href="{% url 'Edit' room.id %}" style="color: white; text-decoration: none;">Edit</a>
+            </button>
+            <button class="delete-btn">
+                <a href="{% url 'Delete' room.id %}" style="color: white; text-decoration: none;">Delete</a>
+            </button>
         </div>
     </div>
     {% endfor %}
 
 </body>
 </html>
-

@@ -204,8 +204,12 @@
                         </ul>
                     </div>
                 </li>
-                <li><a href="{% url 'view_complaint'%}">View Complaints</a></li>
-                <li><a href="#login" class="btn-login">Login</a></li>
+                <li><a href="{% url 'view_complaint' %}">View Complaints</a></li>
+                <li><a href="{% url 'view_travelreview'%}">View Review</a></li>
+                  <form class="d-flex" method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger ms-3">Logout</button>
+            </form>
             </ul>
         </nav>
     </header>

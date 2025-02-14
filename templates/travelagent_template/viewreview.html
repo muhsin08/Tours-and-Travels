@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reviews</title>
+    <!-- Font Awesome CDN link -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .feedback-header {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            margin-bottom: 15px;
+        }
+
+        .feedback-header strong {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+
+        /* Style for the user icon */
+        .user-icon {
+            margin-right: 10px;
+            font-size: 22px;
+            color: #007BFF; /* Customize the color of the icon */
+        }
+
+        .feedback-header .rating {
+            font-weight: bold;
+            color: #ff9900;
+            margin-bottom: 10px;
+        }
+
+        .feedback-header span {
+            font-size: 16px;
+            color: #555;
+            padding-left: 10px;
+        }
+
+        .no-user {
+            font-style: italic;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Reviews</h1>
+
+        {% for ratings in my_rest %}
+            <div class="feedback-header">
+                <div class="user-info">
+                    {% if ratings.user %}
+                        <!-- Display the user icon and username -->
+                        <i class="fas fa-user user-icon"></i>
+                        <strong>{{ ratings.user.username }}</strong>
+                    {% else %}
+                        <!-- If no user, display the Anonymous User text with an icon -->
+                        <i class="fas fa-user-slash user-icon"></i>
+                        <strong class="no-user">Anonymous User</strong>
+                    {% endif %}
+                </div>
+
+                <div class="rating">{{ ratings.rating }} / 5</div>
+                <span>{{ ratings.comment }}</span>
+            </div>
+        {% endfor %}
+    </div>
+
+</body>
+</html>

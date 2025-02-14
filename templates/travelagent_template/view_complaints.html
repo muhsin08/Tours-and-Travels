@@ -3,122 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Complaints</title>
+    <title>Feedback View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        /* Reset and basic styling */
+        /* Basic resets and body styling */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f7fb;
+            color: #333;
         }
 
+        /* Main container */
         .container {
-            width: 80%;
-            margin: 20px auto;
-            background-color: #fff;
+            max-width: 1200px;
+            margin: 30px auto;
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
         }
 
+        /* Header styling */
         h1 {
+            font-size: 40px;
             text-align: center;
             color: #333;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-        }
-
-        .booking-item {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #fafafa;
-            transition: all 0.3s ease;
-        }
-
-        .booking-item:hover {
-            background-color: #f1f1f1;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .booking-header {
-            font-size: 1.3rem;
-            color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 25px;
             font-weight: bold;
         }
 
-        .details {
-            font-size: 1rem;
+        h2 {
+            font-size: 26px;
+            color: #4CAF50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+
+        /* Feedback list section */
+        .feedback-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* Individual feedback post */
+        .post {
+            background-color: #ffffff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .post:hover {
+            transform: translateY(-8px);
+        }
+
+        /* Post header (created date) */
+        .feedback-header {
+            font-size: 14px;
+            color: #888;
             margin-bottom: 15px;
         }
 
-        .details .label {
-            font-weight: bold;
+        /* Customer feedback block */
+        .customer-feedback {
+            background-color: #f1f8e9;
+            border-left: 5px solid #4CAF50;
+            padding: 18px;
+            font-size: 16px;
             color: #555;
+            margin-bottom: 18px;
+            border-radius: 8px;
         }
 
-        .details .value {
-            color: #666;
-            margin-left: 10px;
+        .customer-feedback p {
+            margin: 12px 0;
         }
 
-        .reply-button-container {
+        /* No feedback available styling */
+        .no-feedback {
+            font-size: 20px;
+            color: #f44336;
             text-align: center;
+            margin-top: 40px;
         }
 
-        .reply-button {
-            text-decoration: none;
-            background-color: #007bff;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-size: 1rem;
+        /* Reply Button styling */
+        .btn-reply {
             display: inline-block;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            text-align: center;
             transition: background-color 0.3s ease;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .reply-button:hover {
-            background-color: #0056b3;
+        .btn-reply:hover {
+            background-color: #45a049;
         }
 
-        button {
-            border: none;
-            background-color: transparent;
-            font-size: inherit;
-            color: inherit;
-            cursor: pointer;
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .post {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>User Complaints</h1>
-        {% for bry in comp %}
-        <div class="booking-item">
-            <div class="booking-header">Complaints from {{ bry.username }}</div>
-            <div class="details">
-                <div>
-                    <span class="label">Complaints:</span>
-                    <span class="value">{{ bry.message }}</span>
+        <h1>Complaint View</h1>
+
+
+
+        {% if my_rest %}
+        <div class="feedback-list">
+            {% for complaint in my_rest %}
+                <div class="post">
+                    <div class="feedback-header">
+                         <strong>{{ complaint.customer.username }}</strong>
+                         <span>{{ complaint.date }}</span>
+                    </div>
+                    <div class="customer-feedback">
+                        <p>{{ complaint.message }}</p>
+                    </div>
+
+                    <!-- Reply button inside each feedback post -->
+                    <!-- Assuming the URL for replying to a complaint is "reply_complaint" with the complaint ID -->
+                    <a href="{% url 'reply_complaint' complaint.id %}" class="btn-reply">Reply</a>
                 </div>
-                <div>
-                    <span class="label">Date:</span>
-                    <span class="value">{{ bry.date }}</span>
-                </div>
-            </div>
-            <!-- Reply Button -->
-            <div class="reply-button-container">
-                <a href="{% url 'reply_complaint' bry.id %}" class="reply-button">
-                    <button>Reply</button>
-                </a>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
+        {% else %}
+            <p class="no-feedback">No Complaints available yet!</p>
+        {% endif %}
     </div>
 </body>
 </html>
-
-

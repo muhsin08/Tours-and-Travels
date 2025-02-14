@@ -86,7 +86,6 @@
             background-color: #f9f9f9;
         }
 
-
         @media (max-width: 768px) {
             .form-container {
                 padding: 20px;
@@ -133,15 +132,29 @@
         <h1>Add Tourist Spot</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+
+            <!-- Select Tourist Place -->
+            <label for="name">Tourist Place:</label>
+            <select name="name" id="name" required>
+                <option value="">-- Select --</option>
+                {% for myplace in place %}
+                    <option value="{{ myplace.id }}">{{ myplace.name }}</option>
+                {% endfor %}
+            </select>
+
+            <!-- Spot Name -->
             <label for="name">Spot Name:</label>
             <input class="inp" type="text" id="name" name="name" required>
 
-            <label for="description">Discription:</label>
+            <!-- Description -->
+            <label for="description">Description:</label>
             <input class="inp" type="text" id="description" name="description" required>
 
+            <!-- Location -->
             <label for="location">Location:</label>
             <input class="inp" type="text" id="location" name="location" required>
 
+            <!-- Category -->
             <label for="category">Category:</label>
             <select class="inp" name="category" id="category" required>
                 <option value="" disabled selected>--Select Category--</option>
@@ -151,9 +164,11 @@
                 <option value="event">Event</option>
             </select>
 
+            <!-- Image Upload -->
             <label for="image">Images:</label>
             <input class="inp" type="file" id="image" name="image" required>
 
+            <!-- Submit Button -->
             <button type="submit">Add Tourist Spot</button>
         </form>
     </div>

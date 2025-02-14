@@ -7,5 +7,9 @@ path('package_view/',view_package.as_view(),name="package_view"),
 path('edit/<int:id>/',editpackage.as_view(),name="edit"),
 path('delete/<int:id>/',deletepackage.as_view(),name="delete"),
 path('view_complaint/',view_complaint.as_view(),name="view_complaint"),
-path('reply_complaint/<int:id>/', reply_complaint.as_view(), name="reply_complaint"),
+path('reply_complaint/<int:id>/',reply_complaint.as_view(),name="reply_complaint"),
+path('view_travelreview/',view_travelreview.as_view(),name="view_travelreview"),
+path('logout/',TravelagentLogoutView.as_view(), name='logout'),
+
+
 ]

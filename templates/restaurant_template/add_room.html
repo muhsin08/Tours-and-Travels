@@ -1,143 +1,128 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Rooms</title>
+    <title>Add Room</title>
     <style>
-        * {
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
-
-        body {
-            background: url("{% static 'images/backimages.jpg' %}") no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Arial', sans-serif;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .form-container {
-            background-color: rgba(255, 255, 255, 0.8);
+        .container {
+            width: 60%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            width: 100%;
-            max-width: 500px;
-            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
         h1 {
-            font-size: 30px;
+            text-align: center;
             color: #333;
-            margin-bottom: 20px;
-            font-weight: bold;
         }
-
+        .form-group {
+            margin-bottom: 20px;
+        }
         label {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            text-align: left;
             display: block;
-        }
-
-        input[type="text"], input[type="number"] {
-            width: 100%;
-            padding: 12px;
-            font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            transition: border 0.3s ease;
-        }
-
-        input[type="text"]:focus, input[type="number"]:focus {
-            border-color: #4CAF50;
-            outline: none;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 18px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        .manage-btn {
-            display: inline-block;
-            margin-top: 15px;
-            color: #4CAF50;
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-
-        .manage-btn:hover {
+            font-size: 14px;
+            font-weight: bold;
             color: #333;
+            margin-bottom: 8px;
         }
-
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 20px;
-                width: 90%;
-            }
-
-            h1 {
-                font-size: 24px;
-            }
-
-            input[type="text"], input[type="number"] {
-                padding: 10px;
-            }
-
-            button[type="submit"] {
-                font-size: 16px;
-            }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
         }
-
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 12px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .manage-btn {
+            background-color: #28a745; /* Green for manage button */
+            margin-top: 20px;
+        }
+        .manage-btn:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
     </style>
 </head>
 <body>
 
-    <div class="form-container">
-        <h1>Add Rooms and Facilities</h1>
+    <div class="container">
+        <h1>Add Room</h1>
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <div>
-                <label for="number">Room Number</label>
-                <input type="text" id="number" name="number" required>
+
+            <!-- Room Type -->
+            <div class="form-group">
+                <label for="category">Room Type</label>
+                <select name="category" id="category" required>
+                    <option value="Single">single</option>
+                    <option value="Double">double</option>
+                    <option value="Suite">suite</option>
+                </select>
             </div>
-            <div>
-                <label for="floor">Floor</label>
-                <input type="number" id="floor" name="floor" required>
-            </div>
-            <div>
+
+            <!-- Capacity -->
+            <div class="form-group">
                 <label for="capacity">Capacity</label>
-                <input type="number" id="capacity" name="capacity" required>
+                <input type="number" name="capacity" id="capacity" required>
             </div>
-            <div>
+
+            <!-- Price per Night -->
+            <div class="form-group">
+                <label for="price_per_night">Price per Night</label>
+                <input type="number" step="0.01" name="price_per_night" id="price_per_night" required>
+            </div>
+
+
+
+            <!-- Room Image -->
+            <div class="form-group">
+                <label for="image">Room Image</label>
+                <input type="file" name="image" id="image" required>
+            </div>
+
+            <!-- Room Number -->
+            <div class="form-group">
+                <label for="number">Room Number</label>
+                <input type="number" name="number" id="number" required>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
                 <label for="description">Description</label>
-                <input type="text" id="description" name="description" required>
+                <input type="text" name="description" id="description" required>
             </div>
-            <button type="submit">Create</button>
-            <a href="{% url 'rooms_view' %}" class="manage-btn">Manage Rooms</a>
+
+            <div class="form-group">
+                <label for="facilities">Facilities</label>
+                <input type="text" name="facilities" id="facilities" placeholder="Enter comma-separated facilities" required>
+            </div>
+
+            <button type="submit">Save Room</button>
+        </form>
+
+        <!-- Manage Button -->
+        <form method="GET" action="{% url 'rooms_view' %}">
+            <button type="submit" class="manage-btn">Manage Rooms</button>
         </form>
     </div>
 

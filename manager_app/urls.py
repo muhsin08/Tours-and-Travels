@@ -27,6 +27,8 @@ urlpatterns = [
     path('reply_feeback/<int:id>/', reply_feeback.as_view(), name="reply_feeback"),
     path('view_userbooking/',view_userbooking.as_view(),name="view_userbooking"),
     path('verify/',Verify.as_view(),name="verify"),
-    path('verification/<int:id>/',Verify.as_view(),name="verification")
+    path('verification/<int:id>/',Verify.as_view(),name="verification"),
+    path('logout/',adminLogoutView.as_view(), name='logout'),
+
 
 ]
